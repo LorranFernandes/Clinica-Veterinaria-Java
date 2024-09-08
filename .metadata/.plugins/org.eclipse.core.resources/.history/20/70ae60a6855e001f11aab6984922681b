@@ -1,0 +1,95 @@
+package br.cefet.clinicaveterinaria.test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.jupiter.api.Test;
+
+import br.cefet.clinicaveterinaria.dao.ClienteDao;
+import br.cefet.clinicaveterinaria.model.Cliente;
+
+class ClienteDaoTest {
+
+	private ClienteDao clienteDao;
+
+    @Before
+    public void setUp() {
+        clienteDao = new ClienteDao();
+    }
+
+    @After
+    public void tearDown() throws SQLException {
+        // Limpar o banco de dados para garantir que os testes são independentes
+        // e não há interferência entre eles.
+        List<Cliente> clientes = clienteDao.listarTodos();
+        for (Cliente cliente : clientes) {
+            clienteDao.excluir(cliente.getId());
+        }
+    }
+
+    @Test
+    public void testAdicionar() throws SQLException {
+        Cliente cliente = new Cliente("TEST", "123456789");
+        clienteDao.adicionar(cliente);
+        
+        List<Cliente> clientes = clienteDao.listar("TEST");
+        assertEquals(1, clientes.size());
+        assertEquals("TEST", clientes.get(0).getNome());
+        assertEquals("123456789", clientes.get(0).getTelefone());
+    }
+
+
+	
+	/*
+    @Test
+    public void test() throws SQLException {
+    
+        
+    	Cliente cliente = new Cliente("TEST","123456789") ;
+        ClienteDao clienteDao = new ClienteDao();
+
+    	//Adicionar um Cliente
+
+        try {
+			clienteDao.adicionar(cliente);
+			System.out.println(clienteDao.listarUm(cliente.getId()));
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			fail("Falha ao adicionar cliente");
+		}
+
+		System.out.println("Testando ClienteDao: adicionar(cliente)");
+		assertEquals("TEST",cliente.getNome());   
+		
+		//excluir um cliente
+		
+		clienteDao = new ClienteDao();
+		System.out.println(cliente.getId());
+		try {
+			clienteDao.excluir(cliente.getId());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			fail("Falha ao excluir cliente");
+		}
+		System.out.println(cliente.getId());
+		
+		clienteDao = new ClienteDao();
+		Cliente clienteD = null;
+		clienteD = clienteDao.listarUm(cliente.getId());
+		assertEquals(clienteD,null); 
+		System.out.println("Testando ClienteDao: excluir(cliente)");
+		
+		//buscar um cliente pelo id
+		
+		//alterar um cliente
+		
+	}*/
+
+}

@@ -1,0 +1,168 @@
+package br.cefet.clinicaveterinaria.test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import org.junit.jupiter.api.Test;
+
+import br.cefet.clinicaveterinaria.dao.ClienteDao;
+import br.cefet.clinicaveterinaria.model.Cliente;
+
+class ClienteDaoTest {
+
+	private ClienteDao clienteDao;   
+
+    @Test
+    public void test() throws SQLException {
+        Cliente cliente = new Cliente("TEST", "123456789");
+        clienteDao = new ClienteDao();
+        
+        System.out.println("Adicionando cliente...");
+        clienteDao.adicionar(cliente); 
+        
+        clienteDao = new ClienteDao();
+		List<Cliente> clientes = null;
+		clientes = clienteDao.listar("TEST");
+
+		Cliente clienteAdicionado = clientes.get(0);
+
+	    assertEquals("TEST", clienteAdicionado.getNome());
+		
+	    
+	    
+	    clienteDao = new ClienteDao();
+        Cliente clienteInserido = clientes.get(0);
+        clienteInserido.setNome("UPDATED");
+        clienteInserido.setTelefone("987654321");
+        
+        System.out.println("Alterando Cliente...");
+        clienteDao.alterar(clienteInserido);
+        
+        clienteDao = new ClienteDao();
+        Cliente clienteAtualizado = clienteDao.listarUm(clienteInserido.getId());
+        assertEquals("UPDATED", clienteAtualizado.getNome());
+        
+        
+		clienteDao = new ClienteDao();
+		System.out.println("Excluindo Cliente...");
+		clienteDao.excluir(clienteAdicionado.getId());
+			
+		Cliente clienteExcluido = clientes.get(0);
+		
+		assertEquals(null, clienteExcluido);
+		
+
+    }
+/*
+    @Test
+    public void testAlterar() throws SQLException {
+        Cliente cliente = new Cliente("TEST", "123456789");
+        clienteDao = new ClienteDao();
+        clienteDao.adicionar(cliente);
+
+        List<Cliente> clientes = clienteDao.listar("TEST");
+        Cliente clienteInserido = clientes.get(0);
+        clienteInserido.setNome("UPDATED");
+        clienteInserido.setTelefone("987654321");
+        
+        clienteDao.alterar(clienteInserido);
+
+        Cliente clienteAtualizado = clienteDao.listarUm(clienteInserido.getId());
+        assertEquals("UPDATED", clienteAtualizado.getNome());
+        assertEquals("987654321", clienteAtualizado.getTelefone());
+    }
+
+    @Test
+    public void testExcluir() throws SQLException {
+        Cliente cliente = new Cliente("TEST", "123456789");
+        clienteDao = new ClienteDao();
+        clienteDao.adicionar(cliente);
+        
+        List<Cliente> clientes = clienteDao.listar("TEST");
+        //assertEquals(1, clientes.size());
+        
+        clienteDao.excluir(cliente.getId());
+        
+        clientes = clienteDao.listar("TEST");
+        assertEquals(0, clientes.size());
+    }
+
+    @Test
+    public void testListarUm() throws SQLException {
+        Cliente cliente = new Cliente("TEST", "123456789");
+        clienteDao = new ClienteDao();
+        clienteDao.adicionar(cliente);
+
+        List<Cliente> clientes = clienteDao.listar("TEST");
+        Cliente clienteInserido = clientes.get(0);
+        
+        Cliente clienteBuscado = clienteDao.listarUm(clienteInserido.getId());
+        assertNotNull(clienteBuscado);
+        assertEquals("TEST", clienteBuscado.getNome());
+        assertEquals("123456789", clienteBuscado.getTelefone());
+    }
+
+    @Test
+    public void testListarTodos() throws SQLException {
+        Cliente cliente1 = new Cliente("TEST1", "111111111");
+        Cliente cliente2 = new Cliente("TEST2", "222222222");
+        clienteDao = new ClienteDao();
+        clienteDao.adicionar(cliente1);
+        clienteDao.adicionar(cliente2);
+
+        List<Cliente> clientes = clienteDao.listarTodos();
+        assertEquals(2, clientes.size());
+    }
+	
+	
+	
+	/*
+    @Test
+    public void test() throws SQLException {
+    
+        
+    	Cliente cliente = new Cliente("TEST","123456789") ;
+        ClienteDao clienteDao = new ClienteDao();
+
+    	//Adicionar um Cliente
+
+        try {
+			clienteDao.adicionar(cliente);
+			System.out.println(clienteDao.listarUm(cliente.getId()));
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			fail("Falha ao adicionar cliente");
+		}
+
+		System.out.println("Testando ClienteDao: adicionar(cliente)");
+		assertEquals("TEST",cliente.getNome());   
+		
+		//excluir um cliente
+		
+		clienteDao = new ClienteDao();
+		System.out.println(cliente.getId());
+		try {
+			clienteDao.excluir(cliente.getId());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			fail("Falha ao excluir cliente");
+		}
+		System.out.println(cliente.getId());
+		
+		clienteDao = new ClienteDao();
+		Cliente clienteD = null;
+		clienteD = clienteDao.listarUm(cliente.getId());
+		assertEquals(clienteD,null); 
+		System.out.println("Testando ClienteDao: excluir(cliente)");
+		
+		//buscar um cliente pelo id
+		
+		//alterar um cliente
+		
+	}*/
+
+}

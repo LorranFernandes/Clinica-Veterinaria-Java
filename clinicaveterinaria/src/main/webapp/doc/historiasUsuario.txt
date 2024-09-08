@@ -1,0 +1,23 @@
+
+5 HISTÓRIAS DE USUÁRIO
+
+1)	Como secretaria, eu quero cadastrar um cliente e um animal 
+com os dados (nome do cliente, nome do animal, telefone do cliente, espécie do animal, 
+idade do animal, raça do animal), para cadastrar o cliente e o animal.
+
+2)	Como secretaria, eu quero marcar uma consulta para o animal de estimação do cliente,
+com os dados (data da consulta, hora da consulta, valor da consulta, nome do animal, 
+espécie do animal, raça do animal, idade do animal, nome do cliente, telefone do cliente), 
+para registrar a consulta no sistema.
+
+3)	Como veterinário, eu quero saber os horários das consultas e os animais e veterinários agendados para o dia,
+com os dados (data da consulta, hora da consulta, valor da consulta, nome do animal, nome do veterinário), 
+para consultar o sistema e obter a lista de consultas agendadas para o dia.
+ 
+4)	Como secretaria, eu quero cancelar uma consulta agendada,
+com os dados (data da consulta, hora da consulta, valor da consulta, nome do animal, nome do veterinário),
+para excluir uma consulta.
+
+5)	Como administrador da clínica, eu quero gerar um relatório mensal de atendimentos,
+com os dados (data da consulta, hora da consulta, valor da consulta, nome do animal, espécie do animal,
+nome do veterinário), para análise dos rendimentos mensais da clínica.
